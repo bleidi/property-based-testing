@@ -1,18 +1,20 @@
 package io.github.bleidi;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
-import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
 
-/**
- * Unit test for simple App.
- */
+import com.pholser.junit.quickcheck.Property;
+import com.pholser.junit.quickcheck.generator.InRange;
+import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
+
+@RunWith(JUnitQuickcheck.class)
 public class AppTest {
-    /**
-     * Rigorous Test.
-     */
-    @Test
-    public void testApp() {
-        assertTrue(true);
-    }
+
+	private static final double DELTA = 0.0001d;
+
+	@Property
+	public void divisionDistributive(double n1, double n2, @InRange(min = "0") double n3) {
+		assertEquals((n1 + n2) / n3, n1 / n3 + n2 / n3, DELTA);
+	}
 }
